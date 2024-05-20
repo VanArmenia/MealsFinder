@@ -7,6 +7,9 @@ import MealsByLetter from '../views/MealsByLetter.vue'
 import MealsByName from '../views/MealsByName.vue'
 import MealDetails from '../views/MealDetails.vue'
 import Ingredients from '../views/Ingredients.vue'
+import MealsByCategories from '../views/MealsByCategories.vue'
+import Categories from '../views/Categories.vue'
+
 
 const routes = [
   {
@@ -34,9 +37,19 @@ const routes = [
         component: Ingredients,
       },
       {
+        path: "/categories",
+        name: "categories",
+        component: Categories,
+      },
+      {
         path: "/by-ingredient/:ingredient",
         name: "byIngredient",
         component: MealsByIngredient,
+      },
+      {
+        path: "/by-category/:category",
+        name: "byCategory",
+        component: MealsByCategories,
       },
       {
         path: '/meal/:id',

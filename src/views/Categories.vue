@@ -1,6 +1,6 @@
 <template>
   <div class="p-8 pb-0">
-    <h1 class="text-4xl font-bold mb-4 text-orange-500">Ingredients</h1>
+    <h1 class="text-4xl font-bold mb-4 text-orange-500">Categories</h1>
   </div>
   <div class="px-8">
     <input
@@ -11,12 +11,12 @@
     />
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
       <a href="#"
-        @click.prevent="openIngredient(ingredient)"
-        v-for="ingredient of computedIngredients"
-        :key="ingredient.idIngredient"
+        @click.prevent="openCategory(category)"
+        v-for="category of computedCategories"
+        :key="category.strCategory"
         class="block bg-white rounded p-3 mb-3 shadow"
       >
-        <h3 class="text-2xl font-bold mb-2">{{ ingredient.strIngredient }}</h3>
+        <h3 class="text-2xl font-bold mb-2">{{ category.strCategory }}</h3>
       </a>
     </div>
   </div>
@@ -31,24 +31,24 @@ import store from "../store";
 
 const router = useRouter();
 const keyword = ref("");
-const ingredients = ref([]);
-const computedIngredients = computed(() => {
-  return ingredients.value.filter((i) =>
-    i.strIngredient.toLowerCase().includes(keyword.value.toLowerCase())
+const categories = ref([]);
+const computedCategories = computed(() => {
+  return categories.value.filter((i) =>
+    i.strCategory.toLowerCase().includes(keyword.value.toLowerCase())
   );
 });
 
-function openIngredient(ingredient) {
-  store.commit('setIngredient', ingredient)
+function openCategory(category) {
+  store.commit('setCategory', category)
   router.push({
-    name: "byIngredient",
-    params: { ingredient: ingredient.strIngredient },
+    name: "byCategory",
+    params: { category: category.strCategory },
   });
 }
 
 onMounted(() => {
-  axiosClient.get("list.php?i=list").then(({ data }) => {
-    ingredients.value = data.meals;
+  axiosClient.get("list.php?c=list").then(({ data }) => {
+    categories.value = data.meals;
   });
 });
 </script>

@@ -11,19 +11,25 @@
         :to="{ name: 'byName' }"
         class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
       >
-        Search Meals
+        Search
       </router-link>
-      <router-link
-        :to="{ name: 'byLetter' }"
-        class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
-      >
-        Meals By Letter
-      </router-link>
+<!--      <router-link-->
+<!--        :to="{ name: 'byLetter' }"-->
+<!--        class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"-->
+<!--      >-->
+<!--        By Letter-->
+<!--      </router-link>-->
       <router-link
         :to="{ name: 'ingredients' }"
         class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
       >
-        Meals By Ingredients
+        Ingredients
+      </router-link>
+      <router-link
+          :to="{ name: 'categories' }"
+          class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
+      >
+        Categories
       </router-link>
     </div>
   </header>

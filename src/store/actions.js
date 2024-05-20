@@ -20,3 +20,10 @@ export function searchMealsByIngredient({ commit }, ing) {
       commit('setMealsByIngredients', data.meals)
     })
 }
+
+export function searchMealsByCategory({ commit }, cat) {
+    axiosClient.get(`filter.php?c=${cat}`)
+        .then(({ data }) => {
+            commit('setMealsByCategories', data.meals)
+        })
+}
