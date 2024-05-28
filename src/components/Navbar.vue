@@ -1,3 +1,11 @@
+<script setup>
+  import { ref } from 'vue';
+
+  const isOpen = ref(false);
+  function toggleMenu() {
+    isOpen.value = !isOpen.value;
+  };
+</script>
 <template>
   <header class="bg-white shadow h-16 flex justify-between items-stretch">
     <router-link
@@ -6,31 +14,81 @@
     >
       Home
     </router-link>
-    <div class="flex items-center gap-1">
+
+    <div class="hamburger block sm:hidden" @click="toggleMenu">
+      <div class="hambLine"></div>
+      <div class="hambLine"></div>
+      <div class="hambLine"></div>
+      <div :class="{ 'translate-x-0': isOpen , 'translate-x-36': !isOpen}" class="bg-orange-200 duration-500 transition-transform fixed right-0 top-16 text-black text-xl font-bold mb-2 py-4 h-screen">
+        <div class="flex flex-col">
+          <router-link
+              :to="{ name: 'byName' }"
+              class="inline-flex items-center p-2 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
+          >
+            Search
+          </router-link>
+          <router-link
+              :to="{ name: 'ingredients' }"
+              class="inline-flex items-center p-2 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
+          >
+            Ingredients
+          </router-link>
+          <router-link
+              :to="{ name: 'categories' }"
+              class="inline-flex items-center p-2 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
+          >
+            Categories
+          </router-link>
+        </div>
+
+      </div>
+    </div>
+    <div class="flex items-center gap-1 menu sm:block hidden" :class="{ 'menu': true, 'show': isOpen }" id="menu">
+       <router-link
+            :to="{ name: 'byName' }"
+            class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
+        >
+          Search
+        </router-link>
+      <!--      <router-link-->
+      <!--        :to="{ name: 'byLetter' }"-->
+      <!--        class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"-->
+      <!--      >-->
+      <!--        By Letter-->
+      <!--      </router-link>-->
+
       <router-link
-        :to="{ name: 'byName' }"
-        class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
-      >
-        Search
-      </router-link>
-<!--      <router-link-->
-<!--        :to="{ name: 'byLetter' }"-->
-<!--        class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"-->
-<!--      >-->
-<!--        By Letter-->
-<!--      </router-link>-->
+            :to="{ name: 'ingredients' }"
+            class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
+        >
+          Ingredients
+        </router-link>
       <router-link
-        :to="{ name: 'ingredients' }"
-        class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
-      >
-        Ingredients
-      </router-link>
-      <router-link
-          :to="{ name: 'categories' }"
-          class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
-      >
-        Categories
-      </router-link>
+            :to="{ name: 'categories' }"
+            class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
+        >
+          Categories
+        </router-link>
     </div>
   </header>
 </template>
+
+<style>
+  .hamburger {
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    margin: 20px;
+  }
+
+  .hamburger .hambLine{
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+  }
+
+  .menu.show {
+    right: 10px;
+  }
+</style>

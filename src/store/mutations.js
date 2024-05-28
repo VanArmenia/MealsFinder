@@ -1,5 +1,3 @@
-import {searchMealsByCategory} from "@/store/actions.js";
-
 export function setSearchedMeals(state, meals) {
   state.searchedMeals = meals || []
 }
