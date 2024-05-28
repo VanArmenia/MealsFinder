@@ -19,23 +19,23 @@
       <div class="hambLine"></div>
       <div class="hambLine"></div>
       <div class="hambLine"></div>
-      <div :class="{ 'translate-x-0': isOpen , 'translate-x-36': !isOpen}" class="bg-orange-200 duration-500 transition-transform fixed right-0 top-16 text-black text-xl font-bold mb-2 py-4 h-screen">
+      <div :class="{ 'translate-x-0': isOpen , 'translate-x-36': !isOpen}" class="bg-orange-200 duration-500 transition-transform fixed right-0 top-16 text-black text-xl font-bold mb-2 h-screen">
         <div class="flex flex-col">
           <router-link
               :to="{ name: 'byName' }"
-              class="inline-flex items-center p-2 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
+              class="inline-flex items-center p-4 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
           >
             Search
           </router-link>
           <router-link
               :to="{ name: 'ingredients' }"
-              class="inline-flex items-center p-2 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
+              class="inline-flex items-center p-4 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
           >
             Ingredients
           </router-link>
           <router-link
               :to="{ name: 'categories' }"
-              class="inline-flex items-center p-2 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
+              class="inline-flex items-center p-4 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
           >
             Categories
           </router-link>
