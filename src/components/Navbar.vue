@@ -1,10 +1,29 @@
 <script setup>
-  import { ref } from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
+import axiosClient from "@/axiosClient.js";
 
-  const isOpen = ref(false);
-  function toggleMenu() {
-    isOpen.value = !isOpen.value;
-  };
+const isOpen = ref(false);
+
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value;
+};
+
+const handleClick  = () => {
+  const hamburgerMenu = document.getElementById('hamburger');
+  if (hamburgerMenu && (hamburgerMenu === event.target || hamburgerMenu.contains(event.target))) {
+    return; // Do nothing if clicking on the hamburger menu
+  }
+  isOpen.value = false;
+};
+
+onMounted( () => {
+  document.addEventListener('click', handleClick)
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClick);
+});
+
 </script>
 <template>
   <header class="bg-white shadow h-16 flex justify-between items-stretch">
@@ -15,7 +34,7 @@
       Home
     </router-link>
 
-    <div class="hamburger block sm:hidden" @click="toggleMenu">
+    <div id="hamburger" class="hamburger block sm:hidden" @click="toggleMenu">
       <div class="hambLine"></div>
       <div class="hambLine"></div>
       <div class="hambLine"></div>

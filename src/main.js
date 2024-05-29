@@ -4,6 +4,7 @@ import store from "./store";
 import "./style.css";
 import App from "./App.vue";
 import * as filters from './filters'
+import '@fortawesome/fontawesome-free/css/all.css';
 
 
 const app = createApp(App);

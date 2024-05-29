@@ -1,4 +1,7 @@
 <template>
+  <div class="p-8">
+    <p class="text-orange-500">Explore a world of culinary creativity with the best website. Whether you're a seasoned chef or an enthusiastic home cook, this site offers an extensive collection of innovative and flavorful recipes from around the globe. Each recipe is carefully curated to bring a new twist to traditional dishes, ensuring you always have something exciting to try in the kitchen. Dive into a culinary adventure and find your next favorite dish today!</p>
+  </div>
   <div class="p-8 pb-0 text-orange-500">
     <h1 class="text-4xl font-bold mb-4">Random Meals</h1>
   </div>
