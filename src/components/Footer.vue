@@ -4,11 +4,17 @@
 
 </script>
 <template>
-  <footer class="pt-6 bg-blue-900 mt-6 text-white pb-4">
+  <footer class="pt-2 bg-blue-600 text-white pb-4 mt-6">
     <div class="container mx-auto flex flex-wrap items-center justify-between">
       <!-- Content aligned to the left -->
-      <div class="w-full md:w-auto mb-4 md:mb-0 text-center md:text-left">
-        <p>&copy; 2024 FoodieBliss. All rights reserved.</p>
+      <div class="w-full md:w-1/4 md:w-auto mb-4 md:mb-0 text-center">
+        <router-link
+            :to="{ name: 'home' }"
+            class="inline-flex items-center h-full text-orange-200 font-bold p-2"
+        >
+          <img src="@/assets/logo.png" class="w-1/2 md:w-2/5 my-0 mx-auto p-2">
+        </router-link>
+        <p class="">&copy; 2024 FoodieBliss. All rights reserved.</p>
       </div>
 
       <!-- Content aligned to the center -->

@@ -1,11 +1,13 @@
 <template>
   <Navbar />
-  <main>
-    <div class="max-w-[1200px] mx-auto">
-      <router-view />
-    </div>
-  </main>
-  <Footer />
+  <div class="flex flex-col justify-between min-h-screen">
+    <main>
+      <div class="max-w-[1200px] mx-auto">
+        <router-view />
+      </div>
+    </main>
+    <Footer />
+  </div>
 </template>
 
 <script setup>
