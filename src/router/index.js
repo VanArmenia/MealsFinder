@@ -9,6 +9,7 @@ import MealDetails from '../views/MealDetails.vue'
 import Ingredients from '../views/Ingredients.vue'
 import MealsByCategories from '../views/MealsByCategories.vue'
 import Categories from '../views/Categories.vue'
+import ByArea from '../views/ByArea.vue'
 
 
 const routes = [
@@ -55,6 +56,11 @@ const routes = [
         path: '/meal/:id',
         name: 'mealDetails',
         component: MealDetails
+      },
+      {
+        path: "/map",
+        name: "map",
+        component: ByArea,
       }
     ]
   },
