@@ -1,6 +1,7 @@
 <template>
   <div class="p-8 pb-0">
     <h1 class="text-4xl font-bold mb-4 text-orange-500">Map</h1>
+    <h3 class="text-2xl font-bold mb-2">{{ recipesByArea }}</h3>
   </div>
   <div id="map"></div>
 </template>
@@ -28,58 +29,34 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Icon, Style, Text, Fill, Stroke } from 'ol/style';
 import Cluster from 'ol/source/Cluster';
+import store from "@/store/index.js";
+import axiosClient from "@/axiosClient.js";
 // OpenLayers map lib //
 
 const { recipesByArea } = defineProps({
-  meals: {
+  recipesByArea: {
     required: true,
-    type: Array,
+    type: Object,
   }
 })
-
 const markers = ref([]);
+let map;
 
-  // Create map
-  const map = new Map({
-    target: 'map',
-    layers: [
-      new TileLayer({
-        source: new OSM(),
-      }),
-    ],
-    view: new View({
-      center: fromLonLat([0, 0]),
-      zoom: 2,
-    }),
-    interactions: [new MouseWheelZoom()],
-  });
+const createMarkers = () => {
+  // Clear existing markers
+  markers.value = [];
+  // Create new markers based on the recipe count
+  recipesByArea.forEach(area => {
+    for (let i = 0; i < area.count; i++) {
+      const latitude = Math.random() * 10; // Example latitude
+      const longitude = Math.random() * 10; // Example longitude
 
-  // Create markers
-  const newMarkers = [];
+      const marker = new Feature({
+        geometry: new Point(fromLonLat([longitude, latitude])),
+      });
 
-  // Function to create markers based on the recipe count
-  const createMarkers = () => {
-    // Clear existing markers
-    markers.value = [];
-
-    // Create new markers based on the recipe count
-    recipesByArea.value.forEach(area => {
-      for (let i = 0; i < area.count; i++) {
-        const latitude = Math.random() * 10; // Example latitude
-        const longitude = Math.random() * 10; // Example longitude
-
-        const marker = new Feature({
-          geometry: new Point(fromLonLat([longitude, latitude])),
-        });
-
-        markers.value.push(marker);
-      }
-    });
-  };
-
-  // Watch for changes in recipesByArea and recreate markers
-  watch(recipesByArea, () => {
-    createMarkers();
+      markers.value.push(marker);
+    }
   });
 
   // Create vector source for markers
@@ -132,6 +109,44 @@ const markers = ref([]);
     style: (feature) => createClusterStyle(feature),
   });
 
-  // Add cluster layer to map
+  // Remove existing layers and add new cluster layer to map
+  map.getLayers().clear();
+  map.addLayer(new TileLayer({
+    source: new OSM(),
+  }));
   map.addLayer(clusterLayer);
+};
+
+const initializeMap = async () => {
+  if (map) return; // Ensure the map is only initialized once
+
+  map = new Map({
+    target: 'map',
+    layers: [
+      new TileLayer({
+        source: new OSM(),
+      }),
+    ],
+    view: new View({
+      center: fromLonLat([0, 0]),
+      zoom: 2,
+    }),
+    interactions: [new MouseWheelZoom()],
+  });
+
+  if (recipesByArea && recipesByArea.length > 0) {
+    await createMarkers(); // Call createMarkers initially if data is already present
+  }
+};
+
+onMounted(async () => {
+  await initializeMap();
+});
+
+watch(recipesByArea, async (newValue) => {
+  if (newValue && newValue.length > 0) {
+    await initializeMap();
+    createMarkers(); // Create markers whenever recipesByArea changes
+  }
+});
 </script>
