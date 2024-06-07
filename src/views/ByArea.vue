@@ -1,7 +1,4 @@
 <template>
-  <div class="p-8 pb-0">
-    <h1 class="text-4xl font-bold mb-4 text-orange-500">Map</h1>
-  </div>
   <div class="px-8">
     <input
       type="text"
@@ -10,60 +7,35 @@
       placeholder="Search in specific area"
     />
   </div>
-  <Map :recipesByArea="recipesByArea" />
+  <Map v-if="Map" :recipesByArea="recipesByArea" />
 </template>
 <script setup>
 
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import axiosClient from "../axiosClient";
-import store from "../store";
-import Map from '../components/Map.vue'
+import {onMounted, ref, shallowRef} from "vue";
+import {computed} from "@vue/reactivity";
+import {useRouter} from "vue-router";
+import store from "@/store/index.js";
 
 const router = useRouter();
 const keyword = ref("");
-const areas = ref([]);
-const recipesByArea = ref([]);
-const markers = ref([]);
+const Map = shallowRef(null);
+const recipesByArea = computed(() => store.state.mealsByArea)
 
-// Function to fetch areas and then recipes by area
-const fetchAreasAndRecipes = async () => {
+const loadComponent = async () => {
   try {
-    // Fetch the list of areas
-    const { data } = await axiosClient.get('list.php?a=list');
-    const areas = data.meals;
-
-    // Define an array to store the recipes count by area
-    const recipesByArea = [];
-
-    // Iterate through the areas array
-    for (const areaObj of areas) {
-      const area = areaObj.strArea; // Access strArea property
-
-      try {
-        // Fetch recipes for the current area
-        const response = await axiosClient.get(`filter.php?a=${area}`);
-        // Store the number of meals for the current area in the array
-        recipesByArea.push({
-          area,
-          count: response.data.meals.length
-        });
-      } catch (error) {
-        // Handle errors for each area request
-        console.error(`Error fetching data for ${area}:`, error);
-      }
+    if (!recipesByArea.value || recipesByArea.value.length === 0) {
+      await store.dispatch('searchMealsByArea');
     }
 
-    // Return the array with the recipes count by area
-    return recipesByArea;
+    // Dynamically import the component
+    const loadedComponent = await import('../components/Map.vue');
+    Map.value =  loadedComponent.default
   } catch (error) {
-    // Handle errors for the initial areas fetch
-    console.error('Error fetching areas:', error);
-    return [];
+    console.error('Error loading component or fetching data:', error);
   }
 };
 
 onMounted(async () => {
-  recipesByArea.value = await fetchAreasAndRecipes();
+  await loadComponent();
 });
 </script>

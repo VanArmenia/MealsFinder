@@ -16,3 +16,6 @@ export function setCategory(state, category) {
 export function setMealsByCategories(state, meals) {
   state.mealsByCategory = meals || []
 }
+export function setMealsByArea(state, meals) {
+  state.mealsByArea = meals || []
+}

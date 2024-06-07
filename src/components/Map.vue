@@ -1,7 +1,6 @@
 <template>
   <div class="p-8 pb-0">
     <h1 class="text-4xl font-bold mb-4 text-orange-500">Map</h1>
-    <h3 class="text-2xl font-bold mb-2">{{ recipesByArea }}</h3>
   </div>
   <div id="map"></div>
 </template>
@@ -29,9 +28,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Icon, Style, Text, Fill, Stroke } from 'ol/style';
 import Cluster from 'ol/source/Cluster';
-import store from "@/store/index.js";
-import axiosClient from "@/axiosClient.js";
 // OpenLayers map lib //
+
+const markers = ref([]);
+let map;
 
 const { recipesByArea } = defineProps({
   recipesByArea: {
@@ -39,8 +39,6 @@ const { recipesByArea } = defineProps({
     type: Object,
   }
 })
-const markers = ref([]);
-let map;
 
 const createMarkers = () => {
   // Clear existing markers
@@ -143,10 +141,7 @@ onMounted(async () => {
   await initializeMap();
 });
 
-watch(recipesByArea, async (newValue) => {
-  if (newValue && newValue.length > 0) {
-    await initializeMap();
-    createMarkers(); // Create markers whenever recipesByArea changes
-  }
+watch(recipesByArea,() => {
+  initializeMap();
 });
 </script>

@@ -27,3 +27,39 @@ export function searchMealsByCategory({ commit }, cat) {
             commit('setMealsByCategories', data.meals)
         })
 }
+
+export async function searchMealsByArea({ commit }) {
+    try {
+        // Fetch the list of areas
+        const { data } = await axiosClient.get('list.php?a=list');
+        const areas = data.meals;
+
+        // Define an array to store the recipes count by area
+        const recipesByArea = [];
+
+        // Iterate through the areas array
+        for (const areaObj of areas) {
+            const area = areaObj.strArea; // Access strArea property
+
+            try {
+                // Fetch recipes for the current area
+                const response = await axiosClient.get(`filter.php?a=${area}`);
+                // Store the number of meals for the current area in the array
+                recipesByArea.push({
+                    area,
+                    count: response.data.meals.length
+                });
+            } catch (error) {
+                // Handle errors for each area request
+                console.error(`Error fetching data for ${area}:`, error);
+            }
+        }
+
+        commit('setMealsByArea', recipesByArea)
+
+    } catch (error) {
+        // Handle errors for the initial areas fetch
+        console.error('Error fetching areas:', error);
+        return [];
+    }
+}
