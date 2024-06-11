@@ -38,8 +38,14 @@ onUnmounted(() => {
       <div class="hambLine"></div>
       <div class="hambLine"></div>
       <div class="hambLine"></div>
-      <div :class="{ 'translate-x-0': isOpen , 'translate-x-36': !isOpen}" class="bg-orange-200 duration-500 transition-transform fixed right-0 top-16 text-black text-xl font-bold mb-2 h-screen">
+      <div :class="{ 'translate-x-0': isOpen , 'translate-x-36': !isOpen}" class="bg-orange-200 duration-500 transition-transform fixed right-0 top-16 text-black text-xl font-bold mb-2 h-screen z-20">
         <div class="flex flex-col">
+          <router-link
+              :to="{ name: 'map' }"
+              class="inline-flex items-center p-4 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
+          >
+            Explore
+          </router-link>
           <router-link
               :to="{ name: 'byName' }"
               class="inline-flex items-center p-4 h-full transition-colors hover:bg-orange-500 hover:text-white w-full"
@@ -68,13 +74,13 @@ onUnmounted(() => {
             class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
         >
           Search
-        </router-link>
-      <!--      <router-link-->
-      <!--        :to="{ name: 'byLetter' }"-->
-      <!--        class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"-->
-      <!--      >-->
-      <!--        By Letter-->
-      <!--      </router-link>-->
+       </router-link>
+      <router-link
+          :to="{ name: 'map' }"
+          class="inline-flex items-center px-2 h-full transition-colors hover:bg-orange-500 hover:text-white"
+      >
+        Explore
+      </router-link>
 
       <router-link
             :to="{ name: 'ingredients' }"

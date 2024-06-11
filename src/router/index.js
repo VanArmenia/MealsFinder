@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from '../components/DefaultLayout.vue';
 import GuestLayout from '../components/GuestLayout.vue';
+import FullWidthLayout from '../components/FullWidthLayout.vue';
 import Home from '../views/Home.vue'
 import MealsByIngredient from '../views/MealsByIngredient.vue'
 import MealsByLetter from '../views/MealsByLetter.vue'
@@ -56,7 +57,13 @@ const routes = [
         path: '/meal/:id',
         name: 'mealDetails',
         component: MealDetails
-      },
+      }
+    ]
+  },
+  {
+    path: '/map',
+    component: FullWidthLayout,
+    children: [
       {
         path: "/map",
         name: "map",

@@ -13,6 +13,7 @@
 <script setup>
 
 import { onMounted, ref, watch } from "vue";
+import coords from "@/Countries.js";
 
 
 // OpenLayers map lib
@@ -46,8 +47,17 @@ const createMarkers = () => {
   // Create new markers based on the recipe count
   recipesByArea.forEach(area => {
     for (let i = 0; i < area.count; i++) {
-      const latitude = Math.random() * 10; // Example latitude
-      const longitude = Math.random() * 10; // Example longitude
+
+      let latitude = 0;
+      let longitude = 0;
+
+      const coord = coords.find(c => c.country === area.area);
+      
+      if (coord) {
+        latitude = coord.latitude;
+        longitude = coord.longitude;
+        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+      }
 
       const marker = new Feature({
         geometry: new Point(fromLonLat([longitude, latitude])),

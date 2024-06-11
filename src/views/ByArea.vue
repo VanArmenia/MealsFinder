@@ -1,13 +1,16 @@
 <template>
-  <div class="px-8">
+  <div class="p-2">
     <input
       type="text"
       v-model="keyword"
-      class="rounded border-2 bg-white border-gray-200 focus:ring-orange-500 focus:border-orange-500 mb-3 w-full"
+      class="rounded border-2 bg-white border-gray-200 focus:ring-orange-500 focus:border-orange-500 w-full md:w-1/4 mx-auto float-right block w-full md:w-1/4"
       placeholder="Search in specific area"
     />
   </div>
   <Map v-if="Map" :recipesByArea="recipesByArea" />
+  <div v-else class="">
+    <img src="@/assets/loading.gif" class="w-1/4 mt-6 md:mt-16 mx-auto p-4 max-w-24">
+  </div>
 </template>
 <script setup>
 
