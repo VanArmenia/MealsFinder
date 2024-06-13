@@ -39,19 +39,19 @@ export async function searchMealsByArea({ commit }) {
 
         // Iterate through the areas array
         for (const areaObj of areas) {
-            const area = areaObj.strArea; // Access strArea property
+            const country = areaObj.strArea; // Access strArea property
 
             try {
                 // Fetch recipes for the current area
-                const response = await axiosClient.get(`filter.php?a=${area}`);
+                const response = await axiosClient.get(`filter.php?a=${country}`);
                 // Store the number of meals for the current area in the array
                 recipesByArea.push({
-                    area,
-                    count: response.data.meals.length
+                    country,
+                    meals: response.data.meals,
                 });
             } catch (error) {
                 // Handle errors for each area request
-                console.error(`Error fetching data for ${area}:`, error);
+                console.error(`Error fetching data for ${country}:`, error);
             }
         }
 
